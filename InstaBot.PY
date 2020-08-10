@@ -27,11 +27,11 @@ class InstaBot:
 		target_profile_url  = self.main_url + '/' + self.target_account
 		self.driver.get(target_profile_url) 
 		num_posts=str(self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[1]/span/span').text).replace(',', '') 
-		print(num_posts)
+		print("Number of posts: "+str(num_posts))
 		num_followers=str(self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a/span').text).replace(',', '')
-		print(num_followers)
+		print("Followers: "+ str(num_followers))
 		num_following=str(self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[3]/a/span').text).replace(',', '')
-		print(num_following)
+		print("Following: "+str(num_following))
 		self.num_posts=12
 		image_list = []
 		soup = BeautifulSoup(self.driver.page_source, 'lxml')
@@ -50,7 +50,7 @@ class InstaBot:
 				for img in all_images:
 					if img not in image_list:
 						image_list.append(img)
-		parent_dir = "C:/Users/Miloni Mittal/Desktop/Flipkart Grid 2.0/myCode/data"
+		parent_dir = "scraped_data"
 		self.path = os.path.join(parent_dir, self.target_account)
 		os.mkdir(self.path) 
 		no_of_images = len(image_list)
@@ -59,7 +59,7 @@ class InstaBot:
 			image_path = os.path.join(self.path, filename)
 			link = img.get('src')
 			response = requests.get(link, stream = True)
-			print('Downloading image {0} of {1}'.format(index, no_of_images))
+			print('Downloading image: {0}/{1}'.format(index, no_of_images))
 			try:
 				with open(image_path, 'wb') as file:
 					shutil.copyfileobj(response.raw, file)
@@ -91,7 +91,7 @@ class InstaBot:
 				for img in all_images:
 					if img not in image_list:
 						image_list.append(img)
-		parent_dir = "C:/Users/Miloni Mittal/Desktop/Flipkart Grid 2.0/myCode/data"
+		parent_dir = "scraped_data"
 		self.path = os.path.join(parent_dir, self.target_hashtag)
 		os.mkdir(self.path) 
 		no_of_images = len(image_list)
@@ -100,7 +100,7 @@ class InstaBot:
 			image_path = os.path.join(self.path, filename)
 			link = img.get('src')
 			response = requests.get(link, stream = True)
-			print('Downloading image {0} of {1}'.format(index, no_of_images))
+			print('Downloading image: {0}/{1}'.format(index, no_of_images))
 			try:
 				with open(image_path, 'wb') as file:
 					shutil.copyfileobj(response.raw, file)

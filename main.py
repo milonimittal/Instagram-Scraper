@@ -1,7 +1,8 @@
 from InstaBot import InstaBot
+from getpass import getpass
 
 username=input("Enter your username: ")
-password=input("Enter your password: ")
+password=getpass("Enter your password: ")
 choice_str=input("Input 1 for account scraping, 2 for hashtag scraping: ")
 choice=int(choice_str)
 
